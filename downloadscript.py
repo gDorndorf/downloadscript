@@ -54,9 +54,12 @@ def initialize(s):
         file.close()
         print("Creating Thomas_DS \xF0\x9F\x98\x8F")
         for i in range(0,len(s)):
-            #pdfunite = pdfunite + " DS/" + s[i]
-            #os.system("pdfunite " + pdfunite + " DS/Thomas_DS.pdf")
-            append_pdf("DS/Thomas_DS.pdf", "DS/" + s[i], "DS/Thomas_DS.pdf")
+            #Not so beutiful work-around, "Windows-Code" generates an Error 22 under Ubuntu 16.10
+            if (os.name == "posix"):
+                pdfunite = pdfunite + r" DS/" + s[i]
+                os.system("pdfunite " + pdfunite + r" DS/Thomas_DS.pdf")
+            else:
+                append_pdf(r"DS/Thomas_DS.pdf", r"DS/" + s[i], r"DS/Thomas_DS.pdf")
         changed = True
     return changed;
 
@@ -79,8 +82,9 @@ scripts = detectScriptsDS(html)
 ls = ""
 try:
     ls = os.listdir("DS/")
-except (WindowsError):
-    print("DS/  doesn't exist");
+except (Exception):
+    print("DS/  doesn't exist, now creating");
+    os.mkdir(r"./DS")      
 # To keep track and inform the user
 changed = updatePDFs(scripts, ls)
 
