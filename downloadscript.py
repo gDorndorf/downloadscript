@@ -80,8 +80,8 @@ ls = ""
 try:
     ls = os.listdir("DS/")
 except (Exception):
-    print("DS/  doesn't exist");
-
+    print("DS/  doesn't exist, now creating");
+    os.mkdir(r"./DS")      
 # To keep track and inform the user
 changed = updatePDFs(scripts, ls)
 
