@@ -79,8 +79,9 @@ scripts = detectScriptsDS(html)
 ls = ""
 try:
     ls = os.listdir("DS/")
-except (WindowsError):
+except (Exception):
     print("DS/  doesn't exist");
+
 # To keep track and inform the user
 changed = updatePDFs(scripts, ls)
 
